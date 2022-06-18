@@ -57,8 +57,8 @@ app.post('/:username/createAgreement/:comId/:cost/:most', async (req, res) => {
     await gateway.connect(ccpPath, { wallet, identity: req.params.username, discovery: { enabled: true, asLocalhost: true } });
     const network = await gateway.getNetwork('mychannel');
     const contract = network.getContract('CommunityContract');
-    await contract.submitTransaction('createAgreement', req.params.comId, req.params.cost, req.params.most);
-    res.json({status: true, message: 'Transaction (create agreement) has been submitted.'})
+    const s = await contract.submitTransaction('createAgreement', req.params.comId, req.params.cost, req.params.most);
+    res.json({status: true, message: 'Transaction (create agreement) has been submitted.', ledgerId: JSON.parse(s.toString())})
   } catch (err) {
     res.json({status: false, error: err});
   }
@@ -186,6 +186,6 @@ app.put('/:username/nayAgreement/:contractId', async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('REST Server listening on port 3000');
+app.listen(4000, () => {
+  console.log('REST Server listening on port 4000');
 });

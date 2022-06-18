@@ -59,7 +59,7 @@ class CommunityContract extends Contract {
         contador = contador + 1;
 
         await ctx.stub.putState('CONTRACT' + contador, Buffer.from(JSON.stringify(agreement)));
-        console.info('============= END : Create Agreement ===========');
+        return JSON.stringify('CONTRACT' + contador);
     }
 
     
